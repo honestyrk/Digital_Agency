@@ -1,0 +1,119 @@
+@import 'tailwindcss';
+
+@theme {
+  /* THE accent color — swap this one value to rebrand the whole site */
+  --color-accent: #e8fb5a;
+
+  --color-ink: #0a0a0a;
+  --color-ink-2: #121212;
+  --color-ink-3: #1a1a1a;
+  --color-line: rgba(255, 255, 255, 0.08);
+  --color-muted: rgba(255, 255, 255, 0.55);
+
+  --font-display: 'Space Grotesk', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+}
+
+html {
+  background: var(--color-ink);
+  color: #fff;
+  scroll-behavior: auto; /* Lenis owns scrolling */
+}
+
+body {
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+::selection {
+  background: var(--color-accent);
+  color: var(--color-ink);
+}
+
+/* Oversized display headline utility */
+.display {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 0.95;
+  text-wrap: balance;
+}
+
+.eyebrow {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+/* Infinite marquee (pausable, reduced-motion aware) */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee var(--marquee-speed, 40s) linear infinite;
+}
+.marquee:hover .marquee-track { animation-play-state: paused; }
+
+/* Vertical marquee (testimonial columns) */
+@keyframes marquee-vertical {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}
+.marquee-track-vertical {
+  display: flex;
+  flex-direction: column;
+  height: max-content;
+  animation: marquee-vertical var(--marquee-speed, 40s) linear infinite;
+}
+.marquee:hover .marquee-track-vertical { animation-play-state: paused; }
+
+/* Must come after the track rules: their `animation` shorthand resets direction */
+.marquee-track-reverse { animation-direction: reverse; }
+
+/* Checkmark draw for the contact success state */
+@keyframes draw {
+  to { stroke-dashoffset: 0; }
+}
+.draw-check {
+  stroke-dasharray: 60;
+  stroke-dashoffset: 60;
+  animation: draw 0.7s ease forwards 0.2s;
+}
+.draw-circle {
+  stroke-dasharray: 200;
+  stroke-dashoffset: 200;
+  animation: draw 0.9s ease forwards;
+}
+
+/* Thin scrollbar in the dark theme */
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--color-ink); }
+::-webkit-scrollbar-thumb { background: #2a2a2a; border-radius: 5px; }
+
+/* Iridescent floating blobs (Services section background) */
+@keyframes aurora-drift {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(0deg) scale(1); }
+  33% { transform: translate3d(50px, -35px, 0) rotate(14deg) scale(1.08); }
+  66% { transform: translate3d(-35px, 25px, 0) rotate(-10deg) scale(0.94); }
+}
+.aurora-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  opacity: 0.3;
+  pointer-events: none;
+  animation: aurora-drift 20s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+  .marquee-track-vertical { animation: none; }
+  .aurora-blob { animation: none; }
+  html { scroll-behavior: auto; }
+}
