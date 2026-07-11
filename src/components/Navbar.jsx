@@ -9,7 +9,6 @@ const links = [
   { to: '/work', label: 'Work' },
   { to: '/#services', label: 'Services', hash: true },
   { to: '/about', label: 'About' },
-  { to: '/contact', label: 'Contact' },
 ]
 
 /**
