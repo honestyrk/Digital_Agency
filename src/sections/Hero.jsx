@@ -1,12 +1,5 @@
 import { motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
-import {
-  HERO_EYEBROW, HERO_PREFIX, HERO_MAIN, HERO_SUBTEXT, CALENDLY_URL,
-} from '../config/site'
-import { FALLBACK_PROJECTS } from '../config/fallback'
-import { fetchProjects } from '../lib/supabase'
-import { useSupabase } from '../hooks/useSupabase'
-import MagneticButton from '../components/MagneticButton'
+import { HERO_EYEBROW, HERO_PREFIX, HERO_MAIN, HERO_SUBTEXT } from '../config/site'
 import ShinyButton from '../components/ShinyButton'
 import CursorGlow from '../components/CursorGlow'
 import GeometricBackground from '../components/GeometricBackground'
@@ -19,11 +12,9 @@ const rise = (delay) => ({
 
 /**
  * Cinematic hero: badge pill → italic prefix → massive accent headline →
- * filmstrip of real work → subtext → CTAs, entering as a staggered sequence.
+ * subtext → CTA, entering as a staggered sequence.
  */
 export default function Hero() {
-  const { data: projects } = useSupabase(fetchProjects, FALLBACK_PROJECTS)
-  const strip = projects.slice(0, 4)
   const words = HERO_MAIN.split(' ')
 
   return (
@@ -74,41 +65,15 @@ export default function Hero() {
           ))}
         </h1>
 
-        {/* Filmstrip of real work */}
-        <div className="mt-10 grid w-full grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4">
-          {strip.map((p, i) => (
-            <motion.div
-              key={p.id}
-              initial={{ opacity: 0, y: 60 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.75 + i * 0.12, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <Link
-                to={`/work/${p.slug}`}
-                className="group block overflow-hidden rounded-xl border border-line bg-ink-3"
-              >
-                <img
-                  src={p.thumbnail_url}
-                  alt={p.title}
-                  className="aspect-video w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-              </Link>
-            </motion.div>
-          ))}
-        </div>
-
         {/* Subtext */}
-        <motion.p {...rise(1.15)} className="mt-9 text-sm leading-relaxed text-muted sm:text-base">
+        <motion.p {...rise(0.75)} className="mt-9 text-sm leading-relaxed text-muted sm:text-base">
           {HERO_SUBTEXT[0]}
           <br />
           {HERO_SUBTEXT[1]}
         </motion.p>
 
-        {/* CTAs */}
-        <motion.div {...rise(1.3)} className="mt-8 flex flex-col items-center gap-4 sm:flex-row">
-          <MagneticButton href={CALENDLY_URL} target="_blank" rel="noreferrer">
-            Book Strategy Call
-          </MagneticButton>
+        {/* CTA */}
+        <motion.div {...rise(0.9)} className="mt-8">
           <ShinyButton href="#portfolio">View Portfolio</ShinyButton>
         </motion.div>
       </div>
