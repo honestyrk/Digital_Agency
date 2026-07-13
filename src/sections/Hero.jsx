@@ -31,7 +31,7 @@ export default function Hero() {
           <img
             src="/logos/prime-cut.png"
             alt=""
-            className="h-6 w-6 rounded-full border border-line bg-ink object-contain"
+            className="h-5 w-auto object-contain"
           />
           <span className="font-display text-xs font-medium tracking-[0.2em] text-white/80 uppercase">
             {HERO_EYEBROW}

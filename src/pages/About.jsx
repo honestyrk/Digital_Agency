@@ -28,7 +28,7 @@ export default function About() {
           <Reveal>
             <img
               src="/logos/prime-cut.png"
-              alt="Prime Cut brand mark"
+              alt="Edit Theory brand mark"
               className="w-full rounded-2xl bg-ink-2 object-contain p-10"
             />
           </Reveal>

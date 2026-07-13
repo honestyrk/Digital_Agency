@@ -20,8 +20,8 @@ export default function Footer() {
           <div className="mt-6 flex items-center gap-4">
             <img
               src="/logos/prime-cut.png"
-              alt="Prime Cut logo"
-              className="h-14 w-14 rounded-full border border-line bg-ink object-contain p-1"
+              alt="Edit Theory logo"
+              className="h-12 w-auto object-contain"
               loading="lazy"
             />
             <p className="max-w-xs text-sm text-muted">

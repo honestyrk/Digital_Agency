@@ -1,11 +1,10 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Calendar, MessageCircle, Mail, Loader2 } from 'lucide-react'
-import { CALENDLY_URL, WHATSAPP_URL, CONTACT_EMAIL, BUDGET_OPTIONS } from '../config/site'
+import { MessageCircle, Mail, Loader2 } from 'lucide-react'
+import { WHATSAPP_URL, CONTACT_EMAIL, BUDGET_OPTIONS } from '../config/site'
 import { insertLead } from '../lib/supabase'
 import SectionHeading from '../components/SectionHeading'
 import Reveal from '../components/Reveal'
-import MagneticButton from '../components/MagneticButton'
 import ShinyButton from '../components/ShinyButton'
 
 const fields = [
@@ -41,13 +40,10 @@ export default function ContactCTA() {
           <SectionHeading
             eyebrow="Start Your Brand"
             title="Ready to Become *Unmissable?*"
-            blurb="Tell us about your business, or skip the form and book a call directly."
+            blurb="Tell us about your business, or skip the form and reach us on WhatsApp directly."
             size="text-4xl sm:text-6xl"
           />
           <Reveal className="flex flex-wrap gap-4">
-            <MagneticButton href={CALENDLY_URL} target="_blank" rel="noreferrer">
-              <Calendar size={16} /> Book Strategy Call
-            </MagneticButton>
             <ShinyButton href={WHATSAPP_URL} target="_blank" rel="noreferrer">
               <MessageCircle size={16} /> WhatsApp
             </ShinyButton>
@@ -72,11 +68,8 @@ export default function ContactCTA() {
                 </svg>
                 <h3 className="display mt-7 text-2xl">Inquiry Received</h3>
                 <p className="mt-3 max-w-xs text-sm text-muted">
-                  We'll get back to you within 24 hours. Want to move faster? Book a call right now.
+                  We'll get back to you within 24 hours.
                 </p>
-                <MagneticButton href={CALENDLY_URL} target="_blank" rel="noreferrer" className="mt-7">
-                  <Calendar size={16} /> Book Strategy Call
-                </MagneticButton>
               </motion.div>
             ) : (
               <motion.form
