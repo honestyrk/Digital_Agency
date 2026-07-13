@@ -47,7 +47,7 @@ export default function HeroMountains() {
         className="absolute inset-0"
         style={{
           background:
-            'linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.85) 70%, #0a0a0a 100%)',
+            'linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.85) 70%, #000000 100%)',
         }}
       />
     </motion.div>

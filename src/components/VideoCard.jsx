@@ -11,11 +11,11 @@ export default function VideoCard({ project, aspect = 'aspect-video', big = fals
   const { containerRef, videoRef, shouldMount } = useInViewVideo()
 
   return (
-    <motion.div whileHover={{ scale: 1.02 }} transition={{ duration: 0.4, ease: 'easeOut' }}>
+    <motion.div whileHover={{ scale: 1.02 }} transition={{ duration: 0.18, ease: [0.2, 0, 0, 1] }}>
       <Link
         to={`/work/${project.slug}`}
         ref={containerRef}
-        className={`group relative block overflow-hidden rounded-2xl bg-ink-3 ${aspect}`}
+        className={`group relative block overflow-hidden rounded-none bg-ink-3 ${aspect}`}
       >
         {shouldMount && project.preview_video_url ? (
           <video

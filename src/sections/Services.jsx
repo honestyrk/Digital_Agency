@@ -4,6 +4,15 @@ import {
 } from 'lucide-react'
 import SectionHeading from '../components/SectionHeading'
 
+const gridContainer = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.1 } },
+}
+const gridItem = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.2, 0, 0, 1] } },
+}
+
 // Personal Branding always first — it is the outcome, the rest are the tools.
 // Service list mirrors what Edit Theory actually sells (primecutbyrealupgrade.in).
 const services = [
@@ -24,7 +33,7 @@ export default function Services() {
       {/* Deep-blue backdrop with iridescent floating shapes */}
       <div
         className="absolute inset-0"
-        style={{ background: 'linear-gradient(180deg, #0a0a0a 0%, #0a1030 35%, #0c1440 62%, #0a0a0a 100%)' }}
+        style={{ background: 'linear-gradient(180deg, #000000 0%, #0a1030 35%, #0c1440 62%, #000000 100%)' }}
         aria-hidden
       />
       <div
@@ -43,14 +52,17 @@ export default function Services() {
         eyebrow="What We Do"
         title="Services That *Build* Brands"
       />
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {services.map(({ icon: Icon, title, desc }, i) => (
+      <motion.div
+        className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3"
+        variants={gridContainer}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: '-80px' }}
+      >
+        {services.map(({ icon: Icon, title, desc }) => (
           <motion.div
             key={title}
-            initial={{ opacity: 0, y: 32 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-40px' }}
-            transition={{ duration: 0.5, delay: (i % 3) * 0.08 }}
+            variants={gridItem}
             whileHover={{ y: -6 }}
             className="group rounded-2xl border border-line bg-ink/50 p-7 backdrop-blur-sm transition-colors duration-300 hover:border-accent/40"
           >
@@ -61,7 +73,7 @@ export default function Services() {
             <p className="mt-2 text-sm leading-relaxed text-muted">{desc}</p>
           </motion.div>
         ))}
-      </div>
+      </motion.div>
       </div>
     </section>
   )

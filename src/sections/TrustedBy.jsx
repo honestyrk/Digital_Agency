@@ -1,7 +1,7 @@
 import { FALLBACK_LOGOS } from '../config/fallback'
 import { fetchLogos } from '../lib/supabase'
 import { useSupabase } from '../hooks/useSupabase'
-import Reveal from '../components/Reveal'
+import RevealOnScroll from '../components/RevealOnScroll'
 
 /** Client logos in an infinite marquee; pauses on hover, static if reduced motion. */
 export default function TrustedBy() {
@@ -10,9 +10,9 @@ export default function TrustedBy() {
 
   return (
     <section className="py-20 sm:py-28">
-      <Reveal className="mb-12 text-center">
+      <RevealOnScroll className="mb-12 text-center">
         <div className="eyebrow">Trusted By</div>
-      </Reveal>
+      </RevealOnScroll>
       <div className="marquee overflow-hidden" style={{ maskImage: 'linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent)' }}>
         <div className="marquee-track items-center gap-20 pr-20">
           {loop.map((logo, i) => (

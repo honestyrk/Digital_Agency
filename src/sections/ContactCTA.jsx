@@ -4,7 +4,7 @@ import { MessageCircle, Mail, Loader2 } from 'lucide-react'
 import { WHATSAPP_URL, CONTACT_EMAIL, BUDGET_OPTIONS } from '../config/site'
 import { insertLead } from '../lib/supabase'
 import SectionHeading from '../components/SectionHeading'
-import Reveal from '../components/Reveal'
+import RevealOnScroll from '../components/RevealOnScroll'
 import ShinyButton from '../components/ShinyButton'
 
 const fields = [
@@ -43,17 +43,17 @@ export default function ContactCTA() {
             blurb="Tell us about your business, or skip the form and reach us on WhatsApp directly."
             size="text-4xl sm:text-6xl"
           />
-          <Reveal className="flex flex-wrap gap-4">
+          <RevealOnScroll className="flex flex-wrap gap-4">
             <ShinyButton href={WHATSAPP_URL} target="_blank" rel="noreferrer">
               <MessageCircle size={16} /> WhatsApp
             </ShinyButton>
             <ShinyButton href={`mailto:${CONTACT_EMAIL}`}>
               <Mail size={16} /> Email Us
             </ShinyButton>
-          </Reveal>
+          </RevealOnScroll>
         </div>
 
-        <Reveal delay={0.15}>
+        <RevealOnScroll delay={0.15}>
           <AnimatePresence mode="wait">
             {status === 'success' ? (
               <motion.div
@@ -123,7 +123,7 @@ export default function ContactCTA() {
               </motion.form>
             )}
           </AnimatePresence>
-        </Reveal>
+        </RevealOnScroll>
       </div>
     </section>
   )

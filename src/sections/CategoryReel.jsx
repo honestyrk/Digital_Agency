@@ -3,11 +3,10 @@ import { CATEGORIES, THUMBNAIL_SECTION, THUMBNAILS } from '../config/site'
 import { FALLBACK_PROJECTS } from '../config/fallback'
 import { fetchProjects } from '../lib/supabase'
 import { useSupabase } from '../hooks/useSupabase'
-import Reveal from '../components/Reveal'
 
 function ReelCard({ item }) {
   return (
-    <div className="relative h-56 w-40 shrink-0 overflow-hidden rounded-2xl border border-line bg-ink-2 sm:h-64 sm:w-48">
+    <div className="relative h-56 w-40 shrink-0 overflow-hidden rounded-none border border-line bg-ink-2 sm:h-64 sm:w-48">
       {item.video ? (
         <video
           src={item.video}
@@ -31,7 +30,8 @@ function ReelCard({ item }) {
 }
 
 /** One preview per category (3 real projects + the thumbnail gallery) in a
- *  left-to-right infinite marquee, directly under the hero. */
+ *  left-to-right infinite marquee. Rendered inline inside Hero as its
+ *  video-collage entrance step — no own section wrapper or scroll reveal. */
 export default function CategoryReel() {
   const { data: projects } = useSupabase(fetchProjects, FALLBACK_PROJECTS)
   const containerRef = useRef(null)
@@ -73,20 +73,16 @@ export default function CategoryReel() {
   }, [])
 
   return (
-    <section className="py-14 sm:py-20">
-      <Reveal>
-        <div
-          ref={containerRef}
-          className="marquee mx-auto max-w-7xl overflow-hidden px-5 sm:px-8"
-          style={{ maskImage: 'linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent)' }}
-        >
-          <div className="marquee-track marquee-track-reverse gap-5" style={{ '--marquee-speed': '32s' }}>
-            {loop.map((item, i) => (
-              <ReelCard key={`${item.key}-${i}`} item={item} />
-            ))}
-          </div>
-        </div>
-      </Reveal>
-    </section>
+    <div
+      ref={containerRef}
+      className="marquee mx-auto max-w-7xl overflow-hidden px-5 sm:px-8"
+      style={{ maskImage: 'linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent)' }}
+    >
+      <div className="marquee-track marquee-track-reverse gap-5" style={{ '--marquee-speed': '32s' }}>
+        {loop.map((item, i) => (
+          <ReelCard key={`${item.key}-${i}`} item={item} />
+        ))}
+      </div>
+    </div>
   )
 }

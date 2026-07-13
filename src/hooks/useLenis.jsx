@@ -12,7 +12,11 @@ export function LenisProvider({ children }) {
 
   useEffect(() => {
     if (reduced) return
-    lenis = new Lenis({ lerp: 0.1, wheelMultiplier: 1 })
+    lenis = new Lenis({
+      lerp: 0.1,
+      wheelMultiplier: 1,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    })
     let raf
     const loop = (time) => {
       lenis.raf(time)
@@ -28,18 +32,29 @@ export function LenisProvider({ children }) {
 
   const { hash } = useLocation()
   useEffect(() => {
-    if (hash) {
-      // Wait out the route transition before scrolling to the anchor
-      const t = setTimeout(() => {
-        const el = document.querySelector(hash)
-        if (!el) return
+    if (!hash) {
+      if (lenis) lenis.scrollTo(0, { immediate: true })
+      else window.scrollTo(0, 0)
+      return
+    }
+
+    // Poll for the target element instead of a fixed delay — a cross-page
+    // nav (e.g. /about -> /#services) mounts Home only after the route's
+    // exit/enter transition finishes, so a fixed timeout can fire too early
+    // (element not mounted yet) or needlessly late (already on the page).
+    let raf
+    let attempts = 0
+    const tryScroll = () => {
+      const el = document.querySelector(hash)
+      if (el) {
         if (lenis) lenis.scrollTo(el, { offset: -100 })
         else el.scrollIntoView()
-      }, 500)
-      return () => clearTimeout(t)
+        return
+      }
+      if (attempts++ < 60) raf = requestAnimationFrame(tryScroll)
     }
-    if (lenis) lenis.scrollTo(0, { immediate: true })
-    else window.scrollTo(0, 0)
+    raf = requestAnimationFrame(tryScroll)
+    return () => cancelAnimationFrame(raf)
   }, [pathname, hash])
 
   return children

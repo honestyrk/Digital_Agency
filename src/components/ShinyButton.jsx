@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 const animationProps = {
   initial: { '--x': '100%', scale: 0.9 },
   animate: { '--x': '-100%', scale: 1 },
+  whileHover: { scale: 1.03, transition: { duration: 0.15, ease: [0.2, 0, 0, 1] } },
   whileTap: { scale: 0.95 },
   transition: {
     repeat: Infinity,
@@ -26,7 +27,7 @@ export default function ShinyButton({ children, href, className = '', ...props }
     <Comp
       {...animationProps}
       href={href}
-      className={`relative inline-flex items-center justify-center rounded-full px-7 py-3.5 font-display text-sm font-semibold tracking-wide text-white/90 backdrop-blur-xl transition-shadow duration-300 ease-in-out hover:shadow-[0_0_24px_var(--shine-glow)] ${className}`}
+      className={`relative inline-flex items-center justify-center rounded-full px-7 py-5 font-display text-sm font-semibold tracking-wide text-white/90 backdrop-blur-xl transition-shadow duration-300 ease-framer hover:shadow-[0_0_24px_var(--shine-glow)] ${className}`}
       style={{
         '--shine-glow': accent(15),
         background: `radial-gradient(circle at 50% 0%, ${accent(12)} 0%, transparent 60%)`,

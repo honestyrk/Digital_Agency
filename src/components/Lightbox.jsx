@@ -45,7 +45,7 @@ export default function Lightbox({ images, index, onClose, onNavigate }) {
             key={index}
             src={images[index]}
             alt=""
-            className="max-h-[85vh] max-w-[90vw] rounded-xl object-contain"
+            className="max-h-[85vh] max-w-[90vw] rounded-none object-contain"
             initial={{ scale: 0.92, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.3 }}

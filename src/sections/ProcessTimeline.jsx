@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import { motion, useScroll, useSpring } from 'framer-motion'
 import SectionHeading from '../components/SectionHeading'
-import Reveal from '../components/Reveal'
+import RevealOnScroll from '../components/RevealOnScroll'
 
 // The proven Edit Theory methodology (from primecutbyrealupgrade.in)
 const steps = [
@@ -31,7 +31,7 @@ export default function ProcessTimeline() {
         <ol className="space-y-14">
           {steps.map((step, i) => (
             <li key={step.title} className="relative">
-              <Reveal
+              <RevealOnScroll
                 className={`ml-12 sm:ml-0 sm:w-[calc(50%-3rem)] ${
                   i % 2 === 0 ? '' : 'sm:ml-auto sm:text-left'
                 } ${i % 2 === 0 ? 'sm:text-right' : ''}`}
@@ -39,7 +39,7 @@ export default function ProcessTimeline() {
                 <div className="eyebrow mb-1 !text-[0.65rem]">Step {String(i + 1).padStart(2, '0')}</div>
                 <h3 className="display text-2xl sm:text-3xl">{step.title}</h3>
                 <p className="mt-2 text-sm text-muted">{step.desc}</p>
-              </Reveal>
+              </RevealOnScroll>
               <motion.span
                 className="absolute left-[9px] top-1 block h-3.5 w-3.5 rounded-full border-2 border-accent bg-ink sm:left-1/2 sm:-translate-x-1/2"
                 initial={{ scale: 0 }}

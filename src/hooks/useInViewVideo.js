@@ -38,8 +38,15 @@ export function useInViewVideo({ mountMargin = '400px' } = {}) {
       ([entry]) => {
         const video = videoRef.current
         if (!video) return
-        if (entry.isIntersecting) video.play().catch(() => {})
-        else video.pause()
+        if (entry.isIntersecting) {
+          // React's `muted` JSX attribute doesn't always sync to the DOM
+          // property in time for a dynamically-mounted <video>, which makes
+          // browsers silently reject autoplay — set it imperatively first.
+          video.muted = true
+          video.play().catch(() => {})
+        } else {
+          video.pause()
+        }
       },
       { threshold: 0.2 }
     )

@@ -2,9 +2,9 @@
 
 @theme {
   /* THE accent color — swap this one value to rebrand the whole site */
-  --color-accent: #e8fb5a;
+  --color-accent: #eeff00;
 
-  --color-ink: #0a0a0a;
+  --color-ink: #000000;
   --color-ink-2: #121212;
   --color-ink-3: #1a1a1a;
   --color-line: rgba(255, 255, 255, 0.08);
@@ -12,6 +12,13 @@
 
   --font-display: 'Utendo', system-ui, sans-serif;
   --font-body: 'Times New Roman', Times, serif;
+
+  --ease-framer: cubic-bezier(0.2, 0, 0, 1);
+
+  /* Hero-only fonts — scoped names so they don't collide with font-display/font-body used site-wide */
+  --font-hero-eyebrow: 'Playfair Display', serif;
+  --font-hero-headline: -apple-system, 'SF Pro Display', 'Inter', sans-serif;
+  --font-hero-body: 'Geist', sans-serif;
 }
 
 html {
@@ -133,11 +140,29 @@ body {
   will-change: transform;
 }
 
+/* Packages card dot-grid texture, faded toward the edges */
+.dot-grid {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.35) 1px, transparent 1.4px);
+  background-size: 16px 16px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 90%);
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 90%);
+}
+
+/* Animated "live-drawing" dashed path (Packages growth card) */
+@keyframes dash-draw {
+  from { stroke-dashoffset: 100; }
+  to { stroke-dashoffset: 0; }
+}
+.dash-draw {
+  animation: dash-draw 3.5s linear infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .marquee-track { animation: none; }
   .marquee-track-vertical { animation: none; }
   .aurora-blob { animation: none; }
   .kenburns { animation: none; }
   .ember-layer { display: none; }
+  .dash-draw { animation: none; stroke-dashoffset: 0; }
   html { scroll-behavior: auto; }
 }

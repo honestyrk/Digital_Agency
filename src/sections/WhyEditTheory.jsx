@@ -4,6 +4,15 @@ import {
 } from 'lucide-react'
 import SectionHeading from '../components/SectionHeading'
 
+const gridContainer = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.1 } },
+}
+const gridItem = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.2, 0, 0, 1] } },
+}
+
 // Merges the spec pillars with the old site's "Why Choose Prime Cut" values.
 const features = [
   { icon: Crown, title: 'Personal Branding Expertise', desc: 'Branding people is different from branding products. It is all we do.' },
@@ -20,14 +29,17 @@ export default function WhyEditTheory() {
     <section className="border-y border-line bg-ink-2 py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <SectionHeading eyebrow="Why Edit Theory" title="One Brand. *Infinite* Possibilities." />
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <motion.div
+          className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4"
+          variants={gridContainer}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: '-80px' }}
+        >
           {features.map(({ icon: Icon, title, desc }, i) => (
             <motion.div
               key={title}
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-40px' }}
-              transition={{ duration: 0.5, delay: (i % 4) * 0.07 }}
+              variants={gridItem}
               whileHover={{ y: -5 }}
               className={`rounded-2xl border border-line bg-ink p-6 transition-colors hover:border-accent/40 ${
                 i === 0 ? 'sm:col-span-2 lg:col-span-2 lg:row-span-1' : ''
@@ -38,7 +50,7 @@ export default function WhyEditTheory() {
               <p className="mt-2 text-sm leading-relaxed text-muted">{desc}</p>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   )

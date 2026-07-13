@@ -24,7 +24,7 @@ export default function MagneticButton({ children, href, onClick, variant = 'sol
   const styles =
     variant === 'solid'
       ? 'bg-accent text-ink hover:brightness-110'
-      : 'border border-white/20 text-white hover:border-accent hover:text-accent'
+      : 'border border-white/10 bg-white/5 text-white backdrop-blur transition-colors hover:border-accent hover:text-accent'
 
   const Comp = href ? motion.a : motion.button
 
@@ -35,8 +35,9 @@ export default function MagneticButton({ children, href, onClick, variant = 'sol
       onClick={onClick}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
+      whileHover={{ scale: 1.03, transition: { duration: 0.15, ease: [0.2, 0, 0, 1] } }}
       style={{ x: sx, y: sy }}
-      className={`inline-flex items-center gap-2 rounded-full px-7 py-3.5 font-display text-sm font-semibold tracking-wide transition-colors ${styles} ${className}`}
+      className={`inline-flex items-center gap-2 rounded-full px-7 py-5 font-display text-sm font-semibold tracking-wide ${styles} ${className}`}
       {...rest}
     >
       {children}

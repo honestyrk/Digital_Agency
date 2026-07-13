@@ -1,6 +1,5 @@
 import SEO from '../components/SEO'
 import Hero from '../sections/Hero'
-import CategoryReel from '../sections/CategoryReel'
 import Intro from '../sections/Intro'
 import PortfolioShowcase from '../sections/PortfolioShowcase'
 import Services from '../sections/Services'
@@ -17,7 +16,6 @@ export default function Home() {
     <>
       <SEO />
       <Hero />
-      <CategoryReel />
       <Intro />
       <PortfolioShowcase />
       <Services />

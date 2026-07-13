@@ -32,9 +32,9 @@ export default function Navbar() {
   return (
     <header className="fixed inset-x-0 top-4 z-[80] px-4 sm:top-5">
       <div
-        className={`mx-auto max-w-5xl border border-line backdrop-blur-xl transition-all duration-500 ${
+        className={`mx-auto max-w-5xl border border-line backdrop-blur-xl transition-all duration-300 ease-framer ${
           open ? 'rounded-3xl' : 'rounded-full'
-        } ${scrolled ? 'bg-ink/75' : 'bg-ink/40'}`}
+        } ${scrolled ? 'bg-black/80 backdrop-blur-xl' : 'bg-black/30'}`}
       >
         <nav className="flex items-center justify-between py-3 pl-6 pr-3 sm:pl-8">
           <Link to="/" className="display text-lg tracking-tight sm:text-xl" onClick={() => setOpen(false)}>
