@@ -1,8 +1,9 @@
-// ─── Prime Cut site-wide constants ──────────────────────────────────────────
+// ─── Edit Theory site-wide constants ─────────────────────────────────────────
 // Everything a non-developer might want to change lives in this file.
 // Contact details, clients and stats are taken from primecutbyrealupgrade.in
+// (the agency's previous site, under its old name "Prime Cut").
 
-export const SITE_NAME = 'Prime Cut'
+export const SITE_NAME = 'Edit Theory'
 export const SITE_TAGLINE = 'Personal Branding Agency'
 
 // Hero headline — swap freely:
@@ -10,7 +11,7 @@ export const SITE_TAGLINE = 'Personal Branding Agency'
 //   'We Build Personal Brands'
 //   'Stories That Build Businesses'
 export const HERO_HEADLINE = 'We Turn Creators Into Brands'
-export const HERO_EYEBROW = 'Prime Cut Presents'
+export const HERO_EYEBROW = 'Edit Theory Presents'
 
 // Split headline for the cinematic hero: small italic prefix + massive accent line
 export const HERO_PREFIX = 'we turn creators into'
@@ -25,14 +26,14 @@ export const HERO_SUBTEXT = [
 export const SHOWREEL_URL =
   'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4'
 export const SHOWREEL_POSTER =
-  'https://placehold.co/1920x1080/0a0a0a/e8fb5a?text=PRIME+CUT'
+  'https://placehold.co/1920x1080/0a0a0a/e8fb5a?text=EDIT+THEORY'
 
 // Booking + contact (real details from primecutbyrealupgrade.in)
 // NOTE: no Calendly account existed on the old site — replace this URL when one is created.
 export const CALENDLY_URL = 'https://calendly.com/primecutrealupgrade/strategy-call'
 export const WHATSAPP_NUMBER = '917200490940' // +91 72004 90940
 export const WHATSAPP_MESSAGE =
-  "Hi Prime Cut! I'm interested in building my personal brand."
+  "Hi Edit Theory! I'm interested in building my personal brand."
 export const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`
 export const CONTACT_EMAIL = 'primecutrealupgrade@gmail.com'
 export const PHONE_NUMBER = '+91 72004 90940'

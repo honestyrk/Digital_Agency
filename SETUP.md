@@ -1,4 +1,4 @@
-# Prime Cut — Step-by-Step Setup Guide
+# Edit Theory — Step-by-Step Setup Guide
 
 Follow these steps in order. Steps 1–3 get the site running on your machine; steps 4–6 make it live with your own content; step 7 puts it on the internet.
 

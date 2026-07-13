@@ -2,9 +2,8 @@ import { useEffect, useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
+import { SITE_NAME } from '../config/site'
 import MagneticButton from './MagneticButton'
-
-const NAVBAR_TITLE = 'Edit Theory'
 
 const links = [
   { to: '/work', label: 'Work' },
@@ -39,7 +38,7 @@ export default function Navbar() {
       >
         <nav className="flex items-center justify-between py-3 pl-6 pr-3 sm:pl-8">
           <Link to="/" className="display text-lg tracking-tight sm:text-xl" onClick={() => setOpen(false)}>
-            {NAVBAR_TITLE.toUpperCase()}<span className="text-accent">.</span>
+            {SITE_NAME.toUpperCase()}<span className="text-accent">.</span>
           </Link>
 
           <div className="hidden items-center gap-8 md:flex">

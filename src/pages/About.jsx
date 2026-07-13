@@ -13,10 +13,10 @@ const beliefs = [
 export default function About() {
   return (
     <main className="pb-28 pt-36">
-      <SEO title="About" description="The story, mission and creative philosophy behind Prime Cut — a Personal Branding Agency." />
+      <SEO title="About" description="The story, mission and creative philosophy behind Edit Theory — a Personal Branding Agency." />
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
         <div className="eyebrow mb-4">
-          <Reveal>About Prime Cut</Reveal>
+          <Reveal>About Edit Theory</Reveal>
         </div>
         <TextReveal
           text="Crafting *Digital* *Legacies.*"
@@ -27,7 +27,7 @@ export default function About() {
         <div className="mt-20 grid gap-14 lg:grid-cols-[1fr_1.2fr] lg:items-start">
           <Reveal>
             <img
-              src="/logos/prime-cut.png"
+              src="/logos/edit-theory.png"
               alt="Edit Theory brand mark"
               className="w-full rounded-2xl bg-ink-2 object-contain p-10"
             />
@@ -35,7 +35,7 @@ export default function About() {
           <div>
             <Reveal>
               <p className="display text-2xl leading-snug sm:text-3xl">
-                Prime Cut is a creative powerhouse, production agency and branding
+                Edit Theory is a creative powerhouse, production agency and branding
                 studio powered by AI — transforming ambitious visions into
                 remarkable realities.
               </p>

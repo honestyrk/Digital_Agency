@@ -29,7 +29,7 @@ export default function Hero() {
           className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-line bg-ink/50 py-1.5 pl-2 pr-4 backdrop-blur-xl"
         >
           <img
-            src="/logos/prime-cut.png"
+            src="/logos/edit-theory.png"
             alt=""
             className="h-5 w-auto object-contain"
           />

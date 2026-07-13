@@ -3,7 +3,7 @@ import { motion, useScroll, useSpring } from 'framer-motion'
 import SectionHeading from '../components/SectionHeading'
 import Reveal from '../components/Reveal'
 
-// The proven Prime Cut methodology (from primecutbyrealupgrade.in)
+// The proven Edit Theory methodology (from primecutbyrealupgrade.in)
 const steps = [
   { title: 'Discovery', desc: 'Understanding your vision, your goals and who needs to hear you.' },
   { title: 'Strategy', desc: 'Crafting the perfect roadmap — positioning, pillars and a publishing system.' },

@@ -1,7 +1,7 @@
 import TextReveal from '../components/TextReveal'
 
 const lines = [
-  'We are Prime Cut.',
+  'We are Edit Theory.',
   'A *Personal* *Branding* agency.',
   'Video, scripting, branding visuals and',
   'AI-powered content systems that help',

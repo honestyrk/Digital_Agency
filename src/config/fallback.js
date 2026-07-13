@@ -33,8 +33,8 @@ const project = (i, slug, title, client, category, industry, description, extra 
 export const FALLBACK_PROJECTS = [
   // 1) Personal Branding — flagship
   project(0, 'real-upgrade-brand', 'The Real Upgrade Brand', 'Real Upgrade', 'personal-branding', 'Creative Agency',
-    'Building the @real__upgrade personal brand — the content system behind Prime Cut itself.',
-    { services: ['Personal Branding', 'Business Storytelling', 'Video Editing'], thumbnail_url: '/logos/prime-cut.png' }),
+    'Building the @real__upgrade personal brand — the content system behind Edit Theory itself.',
+    { services: ['Personal Branding', 'Business Storytelling', 'Video Editing'], thumbnail_url: '/logos/edit-theory.png' }),
   project(1, 'rish-gang-branding', 'Rish Gang Creator Brand', 'Rish Gang', 'personal-branding', 'Content Creator',
     'A 2.5-year personal branding partnership: study content, Instagram reels and branded videos with a consistent identity.',
     { services: ['Personal Branding', 'Content Strategy', 'Video Editing'], thumbnail_url: '/logos/rish-gang.png',
@@ -84,7 +84,7 @@ export const FALLBACK_TESTIMONIALS = [
     client_name: 'Rish Gang',
     company: 'Content Creator, Rish Gang Channel',
     review:
-      "I've been working with Prime Cut for more than 2.5 years, and the growth we achieved together has been incredible. From study content edits to Instagram reels and branded videos, the quality and consistency always stood out. Their editing style helped generate multi-million views across platforms.",
+      "I've been working with Edit Theory for more than 2.5 years, and the growth we achieved together has been incredible. From study content edits to Instagram reels and branded videos, the quality and consistency always stood out. Their editing style helped generate multi-million views across platforms.",
     photo_url: '/logos/rish-gang.png',
     video_url: null,
     sort_order: 0,

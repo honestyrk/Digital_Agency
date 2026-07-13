@@ -4,7 +4,7 @@ import Intro from '../sections/Intro'
 import PortfolioShowcase from '../sections/PortfolioShowcase'
 import Services from '../sections/Services'
 import Packages from '../sections/Packages'
-import WhyPrimeCut from '../sections/WhyPrimeCut'
+import WhyEditTheory from '../sections/WhyEditTheory'
 import ProcessTimeline from '../sections/ProcessTimeline'
 import Stats from '../sections/Stats'
 import TrustedBy from '../sections/TrustedBy'
@@ -20,7 +20,7 @@ export default function Home() {
       <PortfolioShowcase />
       <Services />
       <Packages />
-      <WhyPrimeCut />
+      <WhyEditTheory />
       <ProcessTimeline />
       <Stats />
       <TrustedBy />

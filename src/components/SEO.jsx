@@ -8,7 +8,7 @@ export default function SEO({ title, description, image }) {
   const fullTitle = title ? `${title} — ${SITE_NAME}` : `${SITE_NAME} — Personal Branding Agency`
   const desc =
     description ||
-    'Prime Cut is a Personal Branding Agency specializing in video editing, scripting, branding visuals and AI-powered content systems that help brands stand out and scale.'
+    'Edit Theory is a Personal Branding Agency specializing in video editing, scripting, branding visuals and AI-powered content systems that help brands stand out and scale.'
   return (
     <>
       <title>{fullTitle}</title>

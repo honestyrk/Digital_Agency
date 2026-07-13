@@ -5,7 +5,7 @@ import {
 import SectionHeading from '../components/SectionHeading'
 
 // Personal Branding always first — it is the outcome, the rest are the tools.
-// Service list mirrors what Prime Cut actually sells (primecutbyrealupgrade.in).
+// Service list mirrors what Edit Theory actually sells (primecutbyrealupgrade.in).
 const services = [
   { icon: Crown, title: 'Personal Branding', desc: 'We turn founders and creators into recognized authorities.' },
   { icon: Clapperboard, title: 'Video Editing', desc: 'Cinematic storytelling that captivates and converts audiences.' },

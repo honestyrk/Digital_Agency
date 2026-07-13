@@ -17,7 +17,7 @@ export default function Work() {
 
   return (
     <main className="mx-auto max-w-7xl px-5 pb-28 pt-36 sm:px-8">
-      <SEO title="Work" description="The full Prime Cut portfolio — personal branding, business films, creator content and thumbnails." />
+      <SEO title="Work" description="The full Edit Theory portfolio — personal branding, business films, creator content and thumbnails." />
       <SectionHeading eyebrow="Portfolio" title="All *Work*" />
 
       <div className="mb-12 flex flex-wrap gap-2">

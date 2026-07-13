@@ -1,6 +1,6 @@
-# Prime Cut — Personal Branding Agency Website
+# Edit Theory — Personal Branding Agency Website
 
-A premium, cinematic single-page-app website for **Prime Cut**. Personal Branding is the outcome; video editing, thumbnails, scripts and strategy are the services that achieve it — the site's hierarchy reflects that everywhere.
+A premium, cinematic single-page-app website for **Edit Theory** (formerly Prime Cut). Personal Branding is the outcome; video editing, thumbnails, scripts and strategy are the services that achieve it — the site's hierarchy reflects that everywhere.
 
 **Stack:** React 19 · Vite 6 · Tailwind CSS 4 · Framer Motion · Lenis · React Router 7 · Supabase (CMS + DB + storage) · Vercel
 

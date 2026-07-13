@@ -15,11 +15,11 @@ const features = [
   { icon: Rocket, title: 'Future Ready', desc: 'Scalable creative systems that adapt and grow with your brand.' },
 ]
 
-export default function WhyPrimeCut() {
+export default function WhyEditTheory() {
   return (
     <section className="border-y border-line bg-ink-2 py-24 sm:py-32">
       <div className="mx-auto max-w-7xl px-5 sm:px-8">
-        <SectionHeading eyebrow="Why Prime Cut" title="One Brand. *Infinite* Possibilities." />
+        <SectionHeading eyebrow="Why Edit Theory" title="One Brand. *Infinite* Possibilities." />
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {features.map(({ icon: Icon, title, desc }, i) => (
             <motion.div

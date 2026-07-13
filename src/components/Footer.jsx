@@ -19,7 +19,7 @@ export default function Footer() {
           </div>
           <div className="mt-6 flex items-center gap-4">
             <img
-              src="/logos/prime-cut.png"
+              src="/logos/edit-theory.png"
               alt="Edit Theory logo"
               className="h-12 w-auto object-contain"
               loading="lazy"
