@@ -8,7 +8,7 @@ import MagneticButton from './MagneticButton'
 const links = [
   { to: '/work', label: 'Work' },
   { to: '/#services', label: 'Services', hash: true },
-  { to: '/#pricing', label: 'Pricing', hash: true },
+  { to: '/#packages', label: 'Packages', hash: true },
   { to: '/about', label: 'About' },
 ]
 

@@ -5,7 +5,6 @@ import PortfolioShowcase from '../sections/PortfolioShowcase'
 import Services from '../sections/Services'
 import Packages from '../sections/Packages'
 import WhyPrimeCut from '../sections/WhyPrimeCut'
-import Pricing from '../sections/Pricing'
 import ProcessTimeline from '../sections/ProcessTimeline'
 import Stats from '../sections/Stats'
 import TrustedBy from '../sections/TrustedBy'
@@ -22,7 +21,6 @@ export default function Home() {
       <Services />
       <Packages />
       <WhyPrimeCut />
-      <Pricing />
       <ProcessTimeline />
       <Stats />
       <TrustedBy />
