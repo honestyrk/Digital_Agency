@@ -7,7 +7,7 @@ import Reveal from '../components/Reveal'
 
 function ReelCard({ item }) {
   return (
-    <div className="relative h-[26rem] w-72 shrink-0 overflow-hidden rounded-2xl border border-line bg-ink-2 sm:w-80">
+    <div className="relative h-56 w-40 shrink-0 overflow-hidden rounded-2xl border border-line bg-ink-2 sm:h-64 sm:w-48">
       {item.video ? (
         <video
           src={item.video}
@@ -23,7 +23,7 @@ function ReelCard({ item }) {
         <img src={item.poster} alt="" loading="lazy" className="h-full w-full object-cover" />
       )}
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink/90 via-transparent to-transparent" />
-      <span className="absolute bottom-4 left-4 rounded-full border border-line bg-ink/60 px-3 py-1 font-display text-xs font-medium tracking-wide text-white/90 backdrop-blur-sm">
+      <span className="absolute bottom-2.5 left-2.5 right-2.5 truncate rounded-full border border-line bg-ink/60 px-2.5 py-1 text-center font-display text-[10px] font-medium tracking-wide text-white/90 backdrop-blur-sm">
         {item.label}
       </span>
     </div>
