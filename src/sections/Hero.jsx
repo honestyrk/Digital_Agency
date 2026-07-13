@@ -3,6 +3,8 @@ import { HERO_EYEBROW, HERO_PREFIX, HERO_MAIN, HERO_SUBTEXT } from '../config/si
 import ShinyButton from '../components/ShinyButton'
 import CursorGlow from '../components/CursorGlow'
 import GeometricBackground from '../components/GeometricBackground'
+import HeroMountains from '../components/HeroMountains'
+import EmberParticles from '../components/EmberParticles'
 
 const rise = (delay) => ({
   initial: { opacity: 0, y: 32 },
@@ -19,8 +21,10 @@ export default function Hero() {
 
   return (
     <section className="relative flex min-h-svh flex-col items-center justify-center overflow-hidden px-5 pb-16 pt-32">
+      <HeroMountains />
       <GeometricBackground />
       <CursorGlow />
+      <EmberParticles />
 
       <div className="relative z-20 flex w-full max-w-5xl flex-col items-center text-center">
         {/* Badge pill */}

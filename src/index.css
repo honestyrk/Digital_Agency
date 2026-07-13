@@ -111,9 +111,33 @@ body {
   animation: aurora-drift 20s ease-in-out infinite;
 }
 
+/* Hero mountain backdrop: barely-noticeable 60s Ken Burns drift */
+@keyframes kenburns {
+  from { transform: scale(1); }
+  to { transform: scale(1.06); }
+}
+.kenburns {
+  animation: kenburns 60s ease-in-out infinite alternate;
+}
+
+/* Hero embers: fall with an ash-like horizontal sway (amplitude via --drift) */
+@keyframes ember-fall {
+  0% { transform: translateY(-6vh) translateX(0); }
+  25% { transform: translateY(22vh) translateX(var(--drift)); }
+  50% { transform: translateY(50vh) translateX(calc(var(--drift) * -0.6)); }
+  75% { transform: translateY(78vh) translateX(var(--drift)); }
+  100% { transform: translateY(106vh) translateX(0); }
+}
+.ember {
+  animation: ember-fall linear infinite;
+  will-change: transform;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .marquee-track { animation: none; }
   .marquee-track-vertical { animation: none; }
   .aurora-blob { animation: none; }
+  .kenburns { animation: none; }
+  .ember-layer { display: none; }
   html { scroll-behavior: auto; }
 }
