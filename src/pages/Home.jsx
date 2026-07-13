@@ -3,6 +3,7 @@ import Hero from '../sections/Hero'
 import Intro from '../sections/Intro'
 import PortfolioShowcase from '../sections/PortfolioShowcase'
 import Services from '../sections/Services'
+import Packages from '../sections/Packages'
 import WhyPrimeCut from '../sections/WhyPrimeCut'
 import ProcessTimeline from '../sections/ProcessTimeline'
 import Stats from '../sections/Stats'
@@ -18,6 +19,7 @@ export default function Home() {
       <Intro />
       <PortfolioShowcase />
       <Services />
+      <Packages />
       <WhyPrimeCut />
       <ProcessTimeline />
       <Stats />
