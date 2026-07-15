@@ -15,7 +15,7 @@ function ReelCard({ item }) {
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="auto"
           data-reel-video
         />
       ) : (
