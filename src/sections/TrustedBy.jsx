@@ -58,7 +58,7 @@ export default function TrustedBy() {
               src={logo.logo_url}
               alt={logo.name}
               loading="lazy"
-              className="h-9 w-auto opacity-40 grayscale transition-[opacity,filter] duration-300 hover:opacity-100 hover:grayscale-0"
+              className="h-20 w-auto opacity-40 grayscale transition-[opacity,filter] duration-300 hover:opacity-100 hover:grayscale-0"
             />
           ))}
         </div>
