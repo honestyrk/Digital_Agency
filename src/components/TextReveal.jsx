@@ -29,7 +29,7 @@ export default function TextReveal({ text, as: Tag = 'h2', className = '', delay
                 className={`inline-block ${accented ? 'italic text-accent' : ''}`}
                 initial={{ y: '110%' }}
                 animate={inView ? { y: 0 } : { y: '110%' }}
-                transition={{ duration: 0.6, delay: delay + i * 0.05, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.7, delay: delay + i * 0.07, ease: [0.22, 1, 0.36, 1] }}
               >
                 {clean}
               </motion.span>

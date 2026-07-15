@@ -9,16 +9,16 @@ import CategoryReel from './CategoryReel'
 
 const heroContainer = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
+  show: { transition: { staggerChildren: 0.18, delayChildren: 0.3 } },
 }
 const heroItem = {
   hidden: { opacity: 0, y: 20 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.2, 0, 0, 1] } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.2, 0, 0, 1] } },
 }
 // Video-collage row (item 6): larger initial offset + scale-in, since it's the largest visual element
 const heroCollageItem = {
   hidden: { opacity: 0, y: 30, scale: 0.96 },
-  show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: [0.2, 0, 0, 1] } },
+  show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.7, ease: [0.2, 0, 0, 1] } },
 }
 
 /**
@@ -89,7 +89,7 @@ export default function Hero() {
                     className="inline-block"
                     initial={{ y: '110%' }}
                     animate={{ y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.3 + i * 0.08, ease: [0.2, 0, 0, 1] }}
+                    transition={{ duration: 0.7, delay: 0.45 + i * 0.1, ease: [0.2, 0, 0, 1] }}
                   >
                     {word}
                   </motion.span>

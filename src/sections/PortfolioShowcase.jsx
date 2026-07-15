@@ -15,11 +15,11 @@ import { SkeletonGrid } from '../components/Skeleton'
 // Shared stagger variants for card grids (staggerChildren 0.1, ease-framer reveal)
 const gridContainer = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.1 } },
+  show: { transition: { staggerChildren: 0.15 } },
 }
 const gridItem = {
   hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.2, 0, 0, 1] } },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.2, 0, 0, 1] } },
 }
 
 /**

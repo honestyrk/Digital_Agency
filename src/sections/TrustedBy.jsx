@@ -1,11 +1,11 @@
-import { useEffect, useRef } from 'react'
-import { useReducedMotion } from 'framer-motion'
+import { useRef } from 'react'
+import { useReducedMotion, useAnimationFrame } from 'framer-motion'
 import { FALLBACK_LOGOS } from '../config/fallback'
 import { fetchLogos } from '../lib/supabase'
 import { useSupabase } from '../hooks/useSupabase'
 import RevealOnScroll from '../components/RevealOnScroll'
 
-const ARC_AMPLITUDE = 26 // px lift at the center of the strip
+const ARC_AMPLITUDE = 36 // px lift at the center of the strip
 
 /** Client logos in an infinite marquee, bowed along a viewport-fixed arc as
  *  they scroll; pauses on hover, flat/static if reduced motion. */
@@ -19,33 +19,26 @@ export default function TrustedBy() {
   logoRefs.current = []
   const addLogoRef = (el) => el && logoRefs.current.push(el)
 
-  useEffect(() => {
+  useAnimationFrame(() => {
     if (reduced) return
-    let raf
+    const container = containerRef.current
+    if (!container || logoRefs.current.length === 0) return
 
-    const tick = () => {
-      const container = containerRef.current
-      if (!container) return
-      const containerRect = container.getBoundingClientRect()
-      const centerX = containerRect.left + containerRect.width / 2
-      const halfWidth = containerRect.width / 2
+    const containerRect = container.getBoundingClientRect()
+    const centerX = containerRect.left + containerRect.width / 2
+    const halfWidth = containerRect.width / 2
 
-      // Batch reads, then batch writes — avoids layout thrash across ~10-16 logos/frame.
-      const offsets = logoRefs.current.map((el) => {
-        const rect = el.getBoundingClientRect()
-        const logoCenterX = rect.left + rect.width / 2
-        const normalized = Math.min(1, Math.abs(logoCenterX - centerX) / halfWidth)
-        return ARC_AMPLITUDE * (1 - normalized * normalized)
-      })
-      logoRefs.current.forEach((el, i) => {
-        el.style.transform = `translateY(${-Math.max(0, offsets[i])}px)`
-      })
-
-      raf = requestAnimationFrame(tick)
-    }
-    raf = requestAnimationFrame(tick)
-    return () => cancelAnimationFrame(raf)
-  }, [reduced])
+    // Batch reads, then batch writes — avoids layout thrash across ~10-16 logos/frame.
+    const offsets = logoRefs.current.map((el) => {
+      const rect = el.getBoundingClientRect()
+      const logoCenterX = rect.left + rect.width / 2
+      const normalized = Math.min(1, Math.abs(logoCenterX - centerX) / halfWidth)
+      return ARC_AMPLITUDE * (1 - normalized * normalized)
+    })
+    logoRefs.current.forEach((el, i) => {
+      el.style.transform = `translateY(${-offsets[i]}px)`
+    })
+  })
 
   return (
     <section className="py-20 sm:py-28">
@@ -54,7 +47,7 @@ export default function TrustedBy() {
       </RevealOnScroll>
       <div
         ref={containerRef}
-        className="marquee overflow-hidden py-6"
+        className="marquee overflow-hidden py-8"
         style={{ maskImage: 'linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent)' }}
       >
         <div className="marquee-track items-center gap-20 pr-20">
