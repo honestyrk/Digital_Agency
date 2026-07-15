@@ -14,11 +14,12 @@ export const HERO_HEADLINE = 'We Turn Creators Into Brands'
 export const HERO_EYEBROW = 'Edit Theory Presents'
 
 // Split headline for the cinematic hero: small italic prefix + massive accent line
-export const HERO_PREFIX = 'we turn creators into'
-export const HERO_MAIN = 'Personal Brands'
+export const HERO_PREFIX = 'we create'
+export const HERO_MAIN = 'Industry Leaders'
 export const HERO_SUBTEXT = [
-  'premium video, thumbnails, scripts and strategy —',
-  'content systems that make you impossible to ignore.',
+  'Every frame. Every Word. Every Strategy.',
+  'Engineered to make you brand unforgettable.',
+  'We don’t just create content. We build systems that earn attention,trust and customers'
 ]
 
 // Hero showreel — REPLACE with your own compressed reel uploaded to the

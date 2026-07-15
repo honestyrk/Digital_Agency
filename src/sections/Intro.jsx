@@ -2,10 +2,10 @@ import TextReveal from '../components/TextReveal'
 
 const lines = [
   'We are Edit Theory.',
-  'A *Personal* *Branding* agency.',
-  'Video, scripting, branding visuals and',
-  'AI-powered content systems that help',
-  'brands stand out and scale.',
+  '*Build* Different , *Stay* Remembered.',
+  'Every video, Every design, Every campaign,',
+  'and Every strategy is build to seperate your',
+  'brand from the competition.',
 ]
 
 export default function Intro() {

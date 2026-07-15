@@ -64,7 +64,7 @@ export default function Footer() {
         </div>
       </div>
       <div className="border-t border-line py-5 text-center text-xs text-muted">
-        © {new Date().getFullYear()} {SITE_NAME}. All rights reserved.
+        © {new Date().getFullYear()} {SITE_NAME}. All rights reserved. Made by talkwith.rk
       </div>
     </footer>
   )

@@ -1,8 +1,8 @@
+import { useNavigate } from 'react-router-dom'
 import SEO from '../components/SEO'
 import TextReveal from '../components/TextReveal'
 import RevealOnScroll from '../components/RevealOnScroll'
 import MagneticButton from '../components/MagneticButton'
-import { CALENDLY_URL } from '../config/site'
 
 const beliefs = [
   { title: 'Mission', text: 'Make every founder and creator we work with impossible to ignore.' },
@@ -11,6 +11,8 @@ const beliefs = [
 ]
 
 export default function About() {
+  const navigate = useNavigate()
+
   return (
     <main className="pb-28 pt-36">
       <SEO title="About" description="The story, mission and creative philosophy behind Edit Theory — a Personal Branding Agency." />
@@ -60,8 +62,8 @@ export default function About() {
             </div>
 
             <RevealOnScroll delay={0.2} className="mt-14">
-              <MagneticButton href={CALENDLY_URL} target="_blank" rel="noreferrer">
-                Book Strategy Call
+              <MagneticButton onClick={() => navigate('/contact')}>
+                Contact Us
               </MagneticButton>
             </RevealOnScroll>
           </div>

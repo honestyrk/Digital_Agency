@@ -6,6 +6,7 @@ import Footer from './components/Footer'
 import Loader from './components/Loader'
 import ScrollProgress from './components/ScrollProgress'
 import PageTransition from './components/PageTransition'
+import ProtectedRoute from './components/ProtectedRoute'
 import Home from './pages/Home'
 
 // Code-split every non-home route
@@ -14,6 +15,8 @@ const Project = lazy(() => import('./pages/Project'))
 const CaseStudy = lazy(() => import('./pages/CaseStudy'))
 const About = lazy(() => import('./pages/About'))
 const Contact = lazy(() => import('./pages/Contact'))
+const Login = lazy(() => import('./pages/Login'))
+const Admin = lazy(() => import('./pages/Admin'))
 const NotFound = lazy(() => import('./pages/NotFound'))
 
 export default function App() {
@@ -25,25 +28,35 @@ export default function App() {
     setLoading(false)
   }
 
+  // /login and /admin get their own minimal layout — no marketing chrome
+  const isAdminRoute = location.pathname === '/login' || location.pathname.startsWith('/admin')
+
   return (
     <MotionConfig reducedMotion="user">
-      {loading && <Loader onDone={finishLoading} />}
-      <ScrollProgress />
-      <Navbar />
+      {!isAdminRoute && loading && <Loader onDone={finishLoading} />}
+      {!isAdminRoute && <ScrollProgress />}
+      {!isAdminRoute && <Navbar />}
       <Suspense fallback={<div className="min-h-svh" />}>
-        <AnimatePresence mode="wait">
-          <Routes location={location} key={location.pathname}>
-            <Route path="/" element={<PageTransition><Home /></PageTransition>} />
-            <Route path="/work" element={<PageTransition><Work /></PageTransition>} />
-            <Route path="/work/:slug" element={<PageTransition><Project /></PageTransition>} />
-            <Route path="/case-studies/:slug" element={<PageTransition><CaseStudy /></PageTransition>} />
-            <Route path="/about" element={<PageTransition><About /></PageTransition>} />
-            <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
-            <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
+        {isAdminRoute ? (
+          <Routes location={location}>
+            <Route path="/login" element={<Login />} />
+            <Route path="/admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
           </Routes>
-        </AnimatePresence>
+        ) : (
+          <AnimatePresence mode="wait">
+            <Routes location={location} key={location.pathname}>
+              <Route path="/" element={<PageTransition><Home /></PageTransition>} />
+              <Route path="/work" element={<PageTransition><Work /></PageTransition>} />
+              <Route path="/work/:slug" element={<PageTransition><Project /></PageTransition>} />
+              <Route path="/case-studies/:slug" element={<PageTransition><CaseStudy /></PageTransition>} />
+              <Route path="/about" element={<PageTransition><About /></PageTransition>} />
+              <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
+              <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
+            </Routes>
+          </AnimatePresence>
+        )}
       </Suspense>
-      <Footer />
+      {!isAdminRoute && <Footer />}
     </MotionConfig>
   )
 }
