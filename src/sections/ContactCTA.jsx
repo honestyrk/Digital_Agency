@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { MessageCircle, Mail, Loader2 } from 'lucide-react'
 import { WHATSAPP_URL, CONTACT_EMAIL, BUDGET_OPTIONS } from '../config/site'
 import { insertLead } from '../lib/supabase'
+import { sendEnquiryEmail } from '../lib/email'
 import SectionHeading from '../components/SectionHeading'
 import RevealOnScroll from '../components/RevealOnScroll'
 import ShinyButton from '../components/ShinyButton'
@@ -25,12 +26,14 @@ export default function ContactCTA() {
     e.preventDefault()
     setStatus('sending')
     const form = Object.fromEntries(new FormData(e.currentTarget))
-    try {
-      await insertLead(form)
-      setStatus('success')
-    } catch {
-      setStatus('error')
+    const [leadResult, emailResult] = await Promise.allSettled([
+      insertLead(form),
+      sendEnquiryEmail(form),
+    ])
+    if (emailResult.status === 'rejected') {
+      console.warn('Enquiry email failed to send:', emailResult.reason)
     }
+    setStatus(leadResult.status === 'fulfilled' ? 'success' : 'error')
   }
 
   return (

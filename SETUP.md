@@ -64,6 +64,32 @@ VITE_GA_ID=
 
 > ✅ **Checkpoint:** the site now shows content from **your** database. Test it: change a project's `title` in Table Editor, refresh the browser — the new title appears. Also submit the contact form; the entry should appear in **Table Editor → leads**.
 
+### 3d. Set up EmailJS (contact form → email notification)
+
+Optional but recommended — without it, form submissions still save to Supabase, they just won't also email you.
+
+1. Sign up free at [emailjs.com](https://www.emailjs.com).
+2. **Email Services → Add New Service** — connect an email account (e.g. Gmail) to be the *sender*. This can be any account; it doesn't have to be the address you want to receive enquiries at.
+3. **Email Templates → Create New Template**:
+   - Set **To Email** to the address you want enquiries delivered to (e.g. `honestyrk@gmail.com` for now — you can change this later without touching any code).
+   - In the template body, use these variables to match the Contact form's fields: `{{name}}`, `{{business_name}}`, `{{phone}}`, `{{email}}`, `{{instagram}}`, `{{budget}}`, `{{description}}`.
+   - Save the template.
+4. **Account → General** — copy your **Public Key**. Also copy the **Service ID** (from the service you created in step 2) and the **Template ID** (from the template in step 3).
+5. **Account → Security → Allowed origins** — add `http://localhost:5173` (for local dev) and your production domain once you have one (Step 7). This stops other sites from using your public key to send email through your account.
+6. Add the three values to your `.env` file:
+
+```bash
+VITE_EMAILJS_SERVICE_ID=service_xxxxxxx
+VITE_EMAILJS_TEMPLATE_ID=template_xxxxxxx
+VITE_EMAILJS_PUBLIC_KEY=your-public-key
+```
+
+7. Stop the dev server (Ctrl+C) and run `npm run dev` again.
+
+> ✅ **Checkpoint:** submit the Contact form. The lead should appear in **Table Editor → leads** (as before) AND an email should arrive at the address you set as "To Email" in step 3.
+
+**To change the recipient later:** edit the "To Email" field on the EmailJS template — no code change or redeploy needed.
+
 ## Step 4 — Replace the placeholder business details
 
 All editable constants live in one file: [`src/config/site.js`](src/config/site.js). Update:
@@ -120,8 +146,8 @@ Case studies (`case_studies` table → `/case-studies/slug`), testimonials, clie
 
 1. Push the project to GitHub/GitLab (`.gitignore` already excludes `.env` and `node_modules`).
 2. Go to [vercel.com/new](https://vercel.com/new) → import the repo. Vercel auto-detects Vite; keep the defaults.
-3. Before deploying, expand **Environment Variables** and add the same three values as your `.env`:
-   `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, and optionally `VITE_GA_ID` (your GA4 `G-…` id).
+3. Before deploying, expand **Environment Variables** and add the same values as your `.env`:
+   `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, optionally `VITE_GA_ID` (your GA4 `G-…` id), and — if you set up Step 3d — `VITE_EMAILJS_SERVICE_ID`, `VITE_EMAILJS_TEMPLATE_ID`, `VITE_EMAILJS_PUBLIC_KEY`.
 4. Click **Deploy**. `vercel.json` already handles SPA routing and asset caching.
 5. Add your custom domain under **Project → Settings → Domains**.
 
@@ -137,6 +163,7 @@ Case studies (`case_studies` table → `/case-studies/slug`), testimonials, clie
 | Video doesn't play on a card | The `preview_video_url` must be a direct public MP4 URL. Test it by opening the URL in a new tab. |
 | Uploaded video is slow to start | Re-export with `-movflags +faststart` (see Step 5 command). |
 | Changed `.env` but nothing happened | Vite only reads env vars at startup — stop and rerun `npm run dev`. |
+| Contact form saves the lead but no email arrives | EmailJS not set up (Step 3d) or its env vars are missing/wrong. Also check the EmailJS dashboard's **Allowed origins** includes the domain you're testing from — requests from unlisted origins are silently rejected. |
 
 ## Command reference
 
