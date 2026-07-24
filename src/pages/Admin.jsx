@@ -4,6 +4,7 @@ import {
   fetchProjects, insertProject, updateProject, deleteProject,
   fetchTestimonials, insertTestimonial, updateTestimonial, deleteTestimonial,
   uploadTestimonialPhoto, uploadTestimonialVideo,
+  uploadProjectThumbnail, uploadProjectCoverImage, uploadProjectPreviewVideo,
   signOut,
 } from '../lib/supabase'
 import { CATEGORIES } from '../config/site'
@@ -11,18 +12,32 @@ import { CATEGORIES } from '../config/site'
 const inputCls =
   'w-full rounded-xl border border-line bg-ink-3 px-4 py-3 text-sm outline-none focus:border-accent'
 const labelCls = 'mb-1.5 block text-xs uppercase tracking-[0.15em] text-muted'
+const fileInputCls =
+  'block w-full text-xs text-muted file:mr-3 file:rounded-full file:border-0 file:bg-accent file:px-4 file:py-2 file:font-display file:text-xs file:font-semibold file:text-ink file:cursor-pointer'
 
 const PROJECT_FIELDS = [
   { name: 'slug', label: 'Slug', required: true },
   { name: 'title', label: 'Title', required: true },
   { name: 'client_name', label: 'Client Name' },
   { name: 'industry', label: 'Industry' },
-  { name: 'thumbnail_url', label: 'Thumbnail URL' },
-  { name: 'cover_image_url', label: 'Cover Image URL' },
-  { name: 'preview_video_url', label: 'Preview Video URL' },
   { name: 'full_video_url', label: 'Full Video URL' },
   { name: 'results', label: 'Results (optional one-liner)' },
   { name: 'sort_order', label: 'Sort Order', type: 'number' },
+]
+
+const PROJECT_MEDIA_FIELDS = [
+  {
+    key: 'thumbnail', column: 'thumbnail_url', label: 'Thumbnail', kind: 'image',
+    uploader: uploadProjectThumbnail, accept: 'image/jpeg,image/png,image/webp,image/gif',
+  },
+  {
+    key: 'cover', column: 'cover_image_url', label: 'Cover Image', kind: 'image',
+    uploader: uploadProjectCoverImage, accept: 'image/jpeg,image/png,image/webp,image/gif',
+  },
+  {
+    key: 'preview', column: 'preview_video_url', label: 'Preview Video', kind: 'video',
+    uploader: uploadProjectPreviewVideo, accept: 'video/mp4,video/webm,video/quicktime',
+  },
 ]
 
 const emptyProject = {
@@ -56,9 +71,28 @@ function ProjectForm({ initial, onCancel, onSaved }) {
   const [form, setForm] = useState(initial)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
+  const [uploading, setUploading] = useState({})
+  const [uploadError, setUploadError] = useState({})
   const isEdit = Boolean(initial.id)
 
   const set = (name, value) => setForm((f) => ({ ...f, [name]: value }))
+
+  const handleFileUpload = async (mediaField, file) => {
+    if (!file) return
+    const { key, column, uploader } = mediaField
+    setUploading((u) => ({ ...u, [key]: true }))
+    setUploadError((u) => ({ ...u, [key]: '' }))
+    try {
+      const url = await uploader(file)
+      set(column, url)
+    } catch (err) {
+      setUploadError((u) => ({ ...u, [key]: err.message || `Failed to upload ${mediaField.label.toLowerCase()}.` }))
+    } finally {
+      setUploading((u) => ({ ...u, [key]: false }))
+    }
+  }
+
+  const isUploading = PROJECT_MEDIA_FIELDS.some((f) => uploading[f.key])
 
   const onSubmit = async (e) => {
     e.preventDefault()
@@ -102,6 +136,33 @@ function ProjectForm({ initial, onCancel, onSaved }) {
         </label>
       ))}
 
+      {PROJECT_MEDIA_FIELDS.map((f) => (
+        <div key={f.key} className="space-y-2">
+          <span className={labelCls}>{f.label}</span>
+          {form[f.column] && f.kind === 'image' && (
+            <img src={form[f.column]} alt="" className="h-20 w-full rounded-lg object-cover" />
+          )}
+          {form[f.column] && f.kind === 'video' && (
+            <video src={form[f.column]} controls muted className="aspect-video w-full rounded-lg bg-black" />
+          )}
+          <input
+            type="file"
+            accept={f.accept}
+            disabled={uploading[f.key]}
+            onChange={(e) => handleFileUpload(f, e.target.files?.[0])}
+            className={fileInputCls}
+          />
+          {uploading[f.key] && <p className="text-xs text-muted">Uploading…</p>}
+          {uploadError[f.key] && <p className="text-xs text-red-400">{uploadError[f.key]}</p>}
+          <input
+            value={form[f.column]}
+            onChange={(e) => set(f.column, e.target.value)}
+            placeholder={`Or paste a ${f.label.toLowerCase()} URL`}
+            className={inputCls}
+          />
+        </div>
+      ))}
+
       <label className="sm:col-span-2">
         <span className={labelCls}>Description</span>
         <textarea rows={3} value={form.description} onChange={(e) => set('description', e.target.value)} className={inputCls} />
@@ -120,7 +181,11 @@ function ProjectForm({ initial, onCancel, onSaved }) {
       {error && <p className="text-sm text-red-400 sm:col-span-2">{error}</p>}
 
       <div className="flex gap-3 sm:col-span-2">
-        <button type="submit" disabled={saving} className="rounded-full bg-accent px-6 py-2.5 font-display text-sm font-semibold text-ink disabled:opacity-60">
+        <button
+          type="submit"
+          disabled={saving || isUploading}
+          className="rounded-full bg-accent px-6 py-2.5 font-display text-sm font-semibold text-ink disabled:opacity-60"
+        >
           {saving ? 'Saving…' : 'Save'}
         </button>
         <button type="button" onClick={onCancel} className="rounded-full border border-line px-6 py-2.5 font-display text-sm text-white/70 hover:text-white">
@@ -199,9 +264,6 @@ function WorksPanel() {
     </div>
   )
 }
-
-const fileInputCls =
-  'block w-full text-xs text-muted file:mr-3 file:rounded-full file:border-0 file:bg-accent file:px-4 file:py-2 file:font-display file:text-xs file:font-semibold file:text-ink file:cursor-pointer'
 
 function TestimonialForm({ initial, onCancel, onSaved }) {
   const [form, setForm] = useState(initial)

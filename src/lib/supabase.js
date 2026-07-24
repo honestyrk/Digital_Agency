@@ -105,9 +105,10 @@ export async function deleteTestimonial(id) {
   if (error) throw error
 }
 
-// ─── Admin: file uploads (testimonial photo/video) ────────────────────────
+// ─── Admin: file uploads ────────────────────────────────────────────────
 const MAX_IMAGE_BYTES = 5 * 1024 * 1024
 const MAX_VIDEO_BYTES = 50 * 1024 * 1024
+const MAX_PREVIEW_VIDEO_BYTES = 10 * 1024 * 1024
 const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif']
 const ALLOWED_VIDEO_TYPES = ['video/mp4', 'video/webm', 'video/quicktime']
 
@@ -136,4 +137,16 @@ export function uploadTestimonialPhoto(file) {
 
 export function uploadTestimonialVideo(file) {
   return uploadFile('videos', file, { allowedTypes: ALLOWED_VIDEO_TYPES, maxBytes: MAX_VIDEO_BYTES, kind: 'video' })
+}
+
+export function uploadProjectThumbnail(file) {
+  return uploadFile('images', file, { allowedTypes: ALLOWED_IMAGE_TYPES, maxBytes: MAX_IMAGE_BYTES, kind: 'image' })
+}
+
+export function uploadProjectCoverImage(file) {
+  return uploadFile('images', file, { allowedTypes: ALLOWED_IMAGE_TYPES, maxBytes: MAX_IMAGE_BYTES, kind: 'image' })
+}
+
+export function uploadProjectPreviewVideo(file) {
+  return uploadFile('videos', file, { allowedTypes: ALLOWED_VIDEO_TYPES, maxBytes: MAX_PREVIEW_VIDEO_BYTES, kind: 'video' })
 }
