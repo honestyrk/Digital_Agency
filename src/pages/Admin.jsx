@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import {
   fetchProjects, insertProject, updateProject, deleteProject,
   fetchTestimonials, insertTestimonial, updateTestimonial, deleteTestimonial,
+  uploadTestimonialPhoto, uploadTestimonialVideo,
   signOut,
 } from '../lib/supabase'
 import { CATEGORIES } from '../config/site'
@@ -199,13 +200,32 @@ function WorksPanel() {
   )
 }
 
+const fileInputCls =
+  'block w-full text-xs text-muted file:mr-3 file:rounded-full file:border-0 file:bg-accent file:px-4 file:py-2 file:font-display file:text-xs file:font-semibold file:text-ink file:cursor-pointer'
+
 function TestimonialForm({ initial, onCancel, onSaved }) {
   const [form, setForm] = useState(initial)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState('')
+  const [uploading, setUploading] = useState({ photo: false, video: false })
+  const [uploadError, setUploadError] = useState({ photo: '', video: '' })
   const isEdit = Boolean(initial.id)
 
   const set = (name, value) => setForm((f) => ({ ...f, [name]: value }))
+
+  const handleFileUpload = async (field, uploaderFn, file) => {
+    if (!file) return
+    setUploading((u) => ({ ...u, [field]: true }))
+    setUploadError((u) => ({ ...u, [field]: '' }))
+    try {
+      const url = await uploaderFn(file)
+      set(`${field}_url`, url)
+    } catch (err) {
+      setUploadError((u) => ({ ...u, [field]: err.message || `Failed to upload ${field}.` }))
+    } finally {
+      setUploading((u) => ({ ...u, [field]: false }))
+    }
+  }
 
   const onSubmit = async (e) => {
     e.preventDefault()
@@ -239,14 +259,53 @@ function TestimonialForm({ initial, onCancel, onSaved }) {
         <span className={labelCls}>Review <span className="text-accent">*</span></span>
         <textarea required rows={3} value={form.review} onChange={(e) => set('review', e.target.value)} className={inputCls} />
       </label>
-      <label>
-        <span className={labelCls}>Photo URL</span>
-        <input value={form.photo_url} onChange={(e) => set('photo_url', e.target.value)} className={inputCls} />
-      </label>
-      <label>
-        <span className={labelCls}>Video URL</span>
-        <input value={form.video_url} onChange={(e) => set('video_url', e.target.value)} className={inputCls} />
-      </label>
+
+      <div className="space-y-2">
+        <span className={labelCls}>Photo</span>
+        <div className="flex items-center gap-3">
+          {form.photo_url && (
+            <img src={form.photo_url} alt="" className="h-12 w-12 shrink-0 rounded-full object-cover" />
+          )}
+          <input
+            type="file"
+            accept="image/jpeg,image/png,image/webp,image/gif"
+            disabled={uploading.photo}
+            onChange={(e) => handleFileUpload('photo', uploadTestimonialPhoto, e.target.files?.[0])}
+            className={fileInputCls}
+          />
+        </div>
+        {uploading.photo && <p className="text-xs text-muted">Uploading…</p>}
+        {uploadError.photo && <p className="text-xs text-red-400">{uploadError.photo}</p>}
+        <input
+          value={form.photo_url}
+          onChange={(e) => set('photo_url', e.target.value)}
+          placeholder="Or paste a photo URL"
+          className={inputCls}
+        />
+      </div>
+
+      <div className="space-y-2">
+        <span className={labelCls}>Video</span>
+        {form.video_url && (
+          <video src={form.video_url} controls muted className="aspect-video w-full rounded-lg bg-black" />
+        )}
+        <input
+          type="file"
+          accept="video/mp4,video/webm,video/quicktime"
+          disabled={uploading.video}
+          onChange={(e) => handleFileUpload('video', uploadTestimonialVideo, e.target.files?.[0])}
+          className={fileInputCls}
+        />
+        {uploading.video && <p className="text-xs text-muted">Uploading…</p>}
+        {uploadError.video && <p className="text-xs text-red-400">{uploadError.video}</p>}
+        <input
+          value={form.video_url}
+          onChange={(e) => set('video_url', e.target.value)}
+          placeholder="Or paste a video URL"
+          className={inputCls}
+        />
+      </div>
+
       <label>
         <span className={labelCls}>Sort Order</span>
         <input type="number" value={form.sort_order} onChange={(e) => set('sort_order', e.target.value)} className={inputCls} />
@@ -255,7 +314,11 @@ function TestimonialForm({ initial, onCancel, onSaved }) {
       {error && <p className="text-sm text-red-400 sm:col-span-2">{error}</p>}
 
       <div className="flex gap-3 sm:col-span-2">
-        <button type="submit" disabled={saving} className="rounded-full bg-accent px-6 py-2.5 font-display text-sm font-semibold text-ink disabled:opacity-60">
+        <button
+          type="submit"
+          disabled={saving || uploading.photo || uploading.video}
+          className="rounded-full bg-accent px-6 py-2.5 font-display text-sm font-semibold text-ink disabled:opacity-60"
+        >
           {saving ? 'Saving…' : 'Save'}
         </button>
         <button type="button" onClick={onCancel} className="rounded-full border border-line px-6 py-2.5 font-display text-sm text-white/70 hover:text-white">

@@ -40,6 +40,8 @@ Open **http://localhost:5173** in your browser.
 
 This creates the 6 tables (`projects`, `case_studies`, `testimonials`, `client_logos`, `site_stats`, `leads`), the security rules (visitors can read content but never read leads), and the two public storage buckets (`videos`, `images`).
 
+4. Same SQL Editor → **New query**. Copy all of [`supabase/storage_policies.sql`](supabase/storage_policies.sql), paste, **Run**. This lets the logged-in admin upload testimonial photos/videos directly from the admin panel — without it, the file pickers in the testimonial form will fail with a permissions error.
+
 ### 3b. Load the sample content
 
 1. Same SQL Editor → **New query**.
@@ -162,6 +164,7 @@ Case studies (`case_studies` table → `/case-studies/slug`), testimonials, clie
 | New project doesn't appear | `category` must match one of the four values exactly (lowercase, with dash). Check `slug` is unique. |
 | Video doesn't play on a card | The `preview_video_url` must be a direct public MP4 URL. Test it by opening the URL in a new tab. |
 | Uploaded video is slow to start | Re-export with `-movflags +faststart` (see Step 5 command). |
+| Photo/video upload fails in the admin testimonial form | `supabase/storage_policies.sql` hasn't been run yet (Step 3a.4) — without it the `authenticated` role has no insert/update/delete permission on the storage buckets. |
 | Changed `.env` but nothing happened | Vite only reads env vars at startup — stop and rerun `npm run dev`. |
 | Contact form saves the lead but no email arrives | EmailJS not set up (Step 3d) or its env vars are missing/wrong. Also check the EmailJS dashboard's **Allowed origins** includes the domain you're testing from — requests from unlisted origins are silently rejected. |
 

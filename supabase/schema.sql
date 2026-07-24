@@ -108,5 +108,8 @@ create policy "Public read videos bucket" on storage.objects
 create policy "Public read images bucket" on storage.objects
   for select using (bucket_id = 'images');
 
--- Uploads happen from the Supabase dashboard (authenticated), so no anon
--- insert policy is needed on storage.
+-- No anon/authenticated insert policy is defined here — uploads from the
+-- Supabase dashboard work regardless (dashboard uses the service role).
+-- For the admin panel's testimonial form to upload directly from the
+-- browser, also run supabase/storage_policies.sql, which grants the
+-- authenticated role insert/update/delete on these two buckets.

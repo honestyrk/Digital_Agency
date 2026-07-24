@@ -104,3 +104,36 @@ export async function deleteTestimonial(id) {
   const { error } = await supabase.from('testimonials').delete().eq('id', id)
   if (error) throw error
 }
+
+// ─── Admin: file uploads (testimonial photo/video) ────────────────────────
+const MAX_IMAGE_BYTES = 5 * 1024 * 1024
+const MAX_VIDEO_BYTES = 50 * 1024 * 1024
+const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif']
+const ALLOWED_VIDEO_TYPES = ['video/mp4', 'video/webm', 'video/quicktime']
+
+function assertFile(file, { allowedTypes, maxBytes, kind }) {
+  if (!allowedTypes.includes(file.type)) {
+    throw new Error(`Unsupported ${kind} type. Allowed: ${allowedTypes.map((t) => t.split('/')[1]).join(', ')}.`)
+  }
+  if (file.size > maxBytes) {
+    throw new Error(`${kind[0].toUpperCase()}${kind.slice(1)} is too large. Max ${Math.round(maxBytes / 1024 / 1024)}MB.`)
+  }
+}
+
+async function uploadFile(bucket, file, opts) {
+  if (!supabase) throw new Error('Supabase is not configured')
+  assertFile(file, opts)
+  const ext = file.name.includes('.') ? file.name.split('.').pop() : ''
+  const path = `${crypto.randomUUID()}${ext ? `.${ext}` : ''}`
+  const { error } = await supabase.storage.from(bucket).upload(path, file, { cacheControl: '3600', upsert: false })
+  if (error) throw error
+  return supabase.storage.from(bucket).getPublicUrl(path).data.publicUrl
+}
+
+export function uploadTestimonialPhoto(file) {
+  return uploadFile('images', file, { allowedTypes: ALLOWED_IMAGE_TYPES, maxBytes: MAX_IMAGE_BYTES, kind: 'image' })
+}
+
+export function uploadTestimonialVideo(file) {
+  return uploadFile('videos', file, { allowedTypes: ALLOWED_VIDEO_TYPES, maxBytes: MAX_VIDEO_BYTES, kind: 'video' })
+}
